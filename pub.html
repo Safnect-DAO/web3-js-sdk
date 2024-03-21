@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>发行数字货币</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    
+  </head>
+  <body>
+    <h1>-</h1>
+    <div class="container">
+
+    <form class="form-horizontal" method="POST" action="http://127.0.0.1:8081/publish" id="form">
+      <div class="form-group">
+        <label for="exampleInputName2" class="col-md-2 control-label">网络</label>
+        <div class="col-md-4">
+          <select class="form-control" name="network">
+            <option value="">请选择</option>
+            <option value="testnet">测试网</option>
+            <option value="mainnet">主网</option>
+          </select>
+        </div>
+        <label for="exampleInputEmail2" class="col-md-2 control-label">Key</label>
+        <div class="col-md-4">
+          <input type="text" name="key" class="form-control" id="exampleInputName2" placeholder="私钥WIK">
+        </div>  
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail2" class="col-md-2 control-label">费率</label>
+        <div class="col-md-4">
+          <input type="text" name="feeb" class="form-control" id="exampleInputName2" placeholder="the fee rate. default is 0.5">
+        </div>
+        <label for="exampleInputEmail2" class="col-md-2 control-label">币全称</label>
+        <div class="col-md-4">
+          <input type="text" name="tokenName" class="form-control" id="exampleInputName2" placeholder="币的全名称">
+        </div>  
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail2" class="col-md-2 control-label">币简称</label>
+        <div class="col-md-4">
+          <input type="text" name="tokenSymbol" class="form-control" id="exampleInputName2" placeholder="简称，如：ETH、BTC">
+        </div>
+        <label for="exampleInputEmail2" class="col-md-2 control-label">币进制位</label>
+        <div class="col-md-4">
+          <input type="text" name="decimalNum" class="form-control" id="exampleInputName2" placeholder="设置为3时，钱包余额为3000则只显示3">
+        </div>  
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail2" class="col-md-2 control-label">发行地址</label>
+        <div class="col-md-4">
+          <input type="text" name="address" class="form-control" id="exampleInputName2" placeholder="发行后到账的地址">
+        </div>
+        <label for="exampleInputEmail2" class="col-md-2 control-label">总数量</label>
+        <div class="col-md-4">
+          <input type="text" name="tokenAmount" class="form-control" id="exampleInputName2" placeholder="发行的总数量">
+        </div>  
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName2" class="col-md-2 control-label">是否允许增发</label>
+        <div class="col-md-4">
+          <select class="form-control" name="allowIncreaseMints" placeholder="">
+            <option value="">请选择</option>
+            <option value="false">不允许</option>
+            <option value="true">允许</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail2" class="col-md-2 control-label">接收地址1</label>
+        <div class="col-md-4">
+          <input type="text" name="recaddress1" class="form-control" id="exampleInputName2" placeholder="转账地址一">
+        </div>
+        <label for="exampleInputEmail2" class="col-md-2 control-label">接收数量1</label>
+        <div class="col-md-4">
+          <input type="text" name="recamount1" class="form-control" id="exampleInputName2" placeholder="转给地址一的币的数量">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail2" class="col-md-2 control-label">接收地址2</label>
+        <div class="col-md-4">
+          <input type="text" name="recaddress2" class="form-control" id="exampleInputName2" placeholder="转账地址二">
+        </div>  
+        <label for="exampleInputEmail2" class="col-md-2 control-label">接收数量2</label>
+        <div class="col-md-4">
+          <input type="text" name="recamount2" class="form-control" id="exampleInputName2" placeholder="转给地址二的币的数量">
+        </div>  
+      </div>
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+          <button type="submit" id="btn" class="btn btn-primary col-md-2 btn-lg">发行</button>
+        <div>
+      </div>
+      
+    </form>
+    </div>
+  </body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+  <script src="mvcsdk.0.1.12.js"></script>
+  <script>
+    $(function() {
+      
+      $('#form').submit(function() {
+        if (confirm("请确定表单填写无误，现在要开始发行该数字货币吗？")) {
+          $('#form').ajaxSubmit({
+            success: function() {
+              alert("发行成功");
+            },
+            fail: function() {
+              alert("发行失败");
+            },
+            error: function() {
+              alert("发行失败");
+            }
+          });
+        }
+        return false;
+      });
+      
+      
+    });
+  </script>
+</html>
