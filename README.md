@@ -29,9 +29,9 @@
 ## 功能函数
 
 ### 1、获取钱包地址
-  `var address = Mvc.getAddr(network, privateKeyHex);`
+  `var address = Mvc.getAddr(network, publicKeyX, publicKeyY);`
   
-  通过私钥的16进制字符串获取MVC链测试网或主网的钱包地址。
+  通过公钥字符串获取MVC链测试网或主网的钱包地址。
 
 ### 2、获取代币资产
   ```
@@ -55,9 +55,9 @@
 
 ### 4、代币转账
   ```
-  Mvc.trans((network, privateKeyHex, codehash, genesis, receiveAddress, amount, callback);
+  Mvc.trans((network, privateKeyStr, codehash, genesis, receiveAddress, amount, callback);
   ```
-  privateKeyHex是发送者16进制的私钥，codehash和genesis参数的值在[2、获取代币资产]返回的结果中取得。
+  privateKeyStr是发送者的私钥，codehash和genesis参数的值在[2、获取代币资产]返回的结果中取得。
 
   receiveAddress是接收者的钱包地址；amount是转账的数额。
 
@@ -86,12 +86,12 @@
 ### 7、SPACE转账
 
   ```
-  Mvc.send(network, privateKeyHex, receiverAddress, amount, function(data) {
+  Mvc.send(network, privateKeyStr, receiverAddress, amount, function(data) {
     // 转账请求结果
     console.log(data);
   });
   ```
-  参数privateKeyHex是发送者的16进制格式的私钥。
+  参数privateKeyStr是发送者的私钥。
 
   参数receiverAddress是接收者的钱包地址。
 
