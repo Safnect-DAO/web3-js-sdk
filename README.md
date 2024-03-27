@@ -38,21 +38,92 @@
   Mvc.getAssetsList(network, address, function(success, data) {
     if (success) {
       // 获取成功
+      const assetArr = data;
     }
   });
+  assetArr = [
+    {
+        "codeHash": "c9cc7bbd1010b44873959a8b1a2bcedeb62302b7",
+        "genesis": "cf30c1e549f143abbd094bff65e87e8e75dce0d0",
+        "name": "SYN COIN",
+        "symbol": "SYN",
+        "decimal": 3,
+        "sensibleId": "e83f5efd2834b358f58796817468f41ef66a04e56ba0337c67363b16f46b198000000000",
+        "utxoCount": 3,
+        "confirmed": 673,
+        "confirmedString": "673",
+        "unconfirmed": 0,
+        "unconfirmedString": "0"
+    },
+    {
+        "codeHash": "c9cc7bbd1010b44873959a8b1a2bcedeb62302b7",
+        "genesis": "0b1f73f615e144623e404718ffd832d498cf4120",
+        "name": "RCB Money",
+        "symbol": "RCB",
+        "decimal": 0,
+        "sensibleId": "83d319c994fb0c45268c0c5060e5296022e1fffdcbda5d6737c82fe2ed740d4600000000",
+        "utxoCount": 1,
+        "confirmed": 120,
+        "confirmedString": "120",
+        "unconfirmed": 0,
+        "unconfirmedString": "0"
+    }
+  ];
   ```
   通过钱包地址获取代币资产列表（不含SPACE币）。
 
+  响应参数解析：
+  
+    name: 代币名称
+    symbol: 代币符号，如：BTC、ETH
+    confirmed: 代币余额数量
+    codeHash: 查询交易记录和转账时必须的参数
+    genesis: 查询交易记录和转账时必须的参数
+    decimal: 代币精度值（如代币余额为53200，decimal为3，则钱包余额数显示53.2）
+    
 ### 3、获取某一种代币的交易记录
   ```
   Mvc.getAssetsRecords(network, address, codehash, genesis, function(success, data) {
     if (success) {
       // 获取成功
+      const recordArr = data;
     }
   });
+
+  recordArr = [
+    {
+        "flag": "81301_2",
+        "address": "mmFkNUZAQQZitChd3BnFyyuiAfJojc4MYG",
+        "codeHash": "c9cc7bbd1010b44873959a8b1a2bcedeb62302b7",
+        "genesis": "138dcefad46cc7daf1363aa2bd19aea0f0c1f366",
+        "time": 1710735807000,
+        "height": 81301,
+        "income": 7500,
+        "outcome": 0,
+        "txid": "935998d8b7e71096dc6b8b3d3b0436d5413ad3d1bdc8e5f83f01dff4bf0e052f"
+    },
+    {
+        "flag": "78186_10",
+        "address": "mmFkNUZAQQZitChd3BnFyyuiAfJojc4MYG",
+        "codeHash": "c9cc7bbd1010b44873959a8b1a2bcedeb62302b7",
+        "genesis": "138dcefad46cc7daf1363aa2bd19aea0f0c1f366",
+        "time": 1709048678000,
+        "height": 78186,
+        "income": 20000,
+        "outcome": 0,
+        "txid": "6952a178b5d43236d40e2d7d7768b5b01affa296db784b7986d88a655e925a73"
+    }
+  ];
+  
   ```
   codehash和genesis参数的值在[2、获取代币资产]返回的结果中取得，代币种类由codehash和genesis两个参数确定。
-
+  
+  响应参数解析：
+    
+    income: 接收数量
+    time: 时间
+    txid: 交易id
+  
 ### 4、代币转账
   ```
   Mvc.trans((network, privateKeyStr, codehash, genesis, receiveAddress, amount, callback);
