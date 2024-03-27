@@ -126,7 +126,7 @@
   
 ### 4、代币转账
   ```
-  Mvc.trans((network, privateKeyStr, codehash, genesis, receiveAddress, amount, callback);
+  Mvc.trans(network, privateKeyStr, codehash, genesis, receiveAddress, amount, callback);
   ```
   privateKeyStr是发送者的私钥，codehash和genesis参数的值在[2、获取代币资产]返回的结果中取得。
 
