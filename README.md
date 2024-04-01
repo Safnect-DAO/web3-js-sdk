@@ -36,7 +36,7 @@
 ### 2、获取代币资产
   ```
   Mvc.getAssetsList(network, address, function(success, data) {
-    if (success) {
+    if (success === true) {
       // 获取成功
       const assetArr = data;
     }
@@ -84,7 +84,7 @@
 ### 3、获取某一种代币的交易记录
   ```
   Mvc.getAssetsRecords(network, address, codehash, genesis, function(success, data) {
-    if (success) {
+    if (success === true) {
       // 获取成功
       const recordArr = data;
     }
@@ -126,17 +126,64 @@
   
 ### 4、代币转账
   ```
-  Mvc.trans(network, privateKeyStr, codehash, genesis, receiveAddress, amount, callback);
+  Mvc.trans(network, privateKeyStr, codehash, genesis, receiveAddress, amount, callback(success, data) {
+    if (success === true) {
+      // 成功
+    } else {
+      // 失败
+      const errMsg = data;
+    }
+  });
   ```
   privateKeyStr是发送者的私钥，codehash和genesis参数的值在[2、获取代币资产]返回的结果中取得。
 
   receiveAddress是接收者的钱包地址；amount是转账的数额。
 
+  响应参数：
+
+  ```
+    {
+      "tx": {
+          "hash": "bb78fa0d1d02d363255890c8c02a71d7d5fb731b705a6a38f2282f0f7b7de383",
+          "version": 10,
+          "inputs": [
+              {
+                  ...
+              },
+              {
+                  ...
+              },
+              {
+                  ...
+              }
+          ],
+          "outputs": [
+              ...
+          ],
+          "nLockTime": 0
+      },
+      "txHex": "0a000000033cb...",
+      "routeCheckTx": {
+          "hash": "2d0ebb3abf78be0aef6e94fc1ca76a440d560b34055c7c1e53c66dc2af89041b",
+          "version": 10,
+          "inputs": [
+              ...
+          ],
+          "outputs": [
+              ...
+          ],
+          "nLockTime": 0
+      },
+      "routeCheckTxHex": "0a00000001...",
+      "txid": "bb78fa0d1d02d363255890c8c02a71d7d5fb731b705a6a38f2282f0f7b7de383"
+  }
+```
+
 ### 5、获取SPACE余额
 
   ```
   Mvc.getSpaceBalnace(network, address, function(success, data) {
-    if (success) {
+    if (success === true) {
       // 获取成功
     }
   });
@@ -147,7 +194,7 @@
 
   ```
   Mvc.getSpaceRecords(network, address, function(success, data) {
-    if (success) {
+    if (success === true) {
       // 获取成功
     }
   });
@@ -157,9 +204,15 @@
 ### 7、SPACE转账
 
   ```
-  Mvc.send(network, privateKeyStr, receiverAddress, amount, function(data) {
-    // 转账请求结果
-    console.log(data);
+  Mvc.send(network, privateKeyStr, receiverAddress, amount, function(success, data) {
+    if (success === true) {
+      // 转账请求结果
+      console.log(data);
+    } else {
+      // 失败
+      const errMsg = data;
+    }
+    
   });
   ```
   参数privateKeyStr是发送者的私钥。
@@ -172,7 +225,7 @@
 
   ```
   Mvc.getAssetsPrice(function(success, data) {
-    if (success) {
+    if (success === true) {
       // 获取成功
     }
   });
@@ -184,7 +237,7 @@
 
   ```
   Mvc.getSpacePrice(function(success, data) {
-    if (success) {
+    if (success === true) {
       // 获取成功
     }
   });
