@@ -22,7 +22,7 @@
 ## 引入
   使用js-sdk前，需引入最新版本的sdk js库文件。
   
-  当前最新版本为 mvcsdk_0.1.12.js
+  当前最新版本为 mvcsdk_0.2.03.js
   
   network参数可选值：testnet | mainnet
 
