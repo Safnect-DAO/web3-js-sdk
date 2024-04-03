@@ -190,16 +190,46 @@
   ```
   通过钱包地址获取SPACE币余额，SPACE余额的精度值是8，取到余额后需/100000000才能显示正确的余额（可参考Metalet钱包）。
 
+  响应参数：
+  ```
+  {
+    "address": "mwFJC36HYDBekTXwUeHkok8ZQ2rQ3h52i9",
+    "confirmed": 520000005,
+    "unconfirmed": 0
+  }
+  ```
+  confirmed表示当前的space币的余额
+  unconfirmed表示未确认space币的余额
+
 ### 6、获取SPACE交易记录
 
   ```
   Mvc.getSpaceRecords(network, address, function(success, data) {
     if (success === true) {
       // 获取成功
+
     }
   });
   ```
   通过钱包地址查询SPACE币的交易记录。
+
+  响应参数：
+  ```
+  [
+    {
+        "flag": "82942_49",
+        "address": "mmVYvsxQLFZ4rG2Ep5Y7WjvduhjHd6UUXq",
+        "time": 1711724157000,
+        "height": 82942,
+        "income": 200000000,
+        "outcome": 0,
+        "txid": "111afffe194a6ab1b2b96b0bf878f349aeb85ef08ece298f4cb376de5717e7b4"
+    }
+  ]
+  ```
+  income表示收到的space币数量
+  time表示接收的时间
+  txid表示交易id
 
 ### 7、SPACE转账
 
@@ -230,8 +260,29 @@
     }
   });
   ```
-
   获取主网链上所有代币（SPACE除外）的实时价格（建议定时查询缓存在本地）。价格单位为USD，可根据最新的价格再计算钱包中各代币的USD价值。
+
+  响应参数：
+  ```
+    {
+    "code": 0,
+    "message": "success",
+    "processingTime": 0,
+    "data": {
+        "priceInfo": {
+            "MC": 0.011958,
+            "MSP": 0.120628,
+            "SHOW": 0.039468,
+            "USDT": 1.003614,
+            "VEMSP": 0,
+            "星能": 0.001781
+        }
+    }
+  }
+  ```
+  priceInfo节点中为各代币的价格（USD）
+
+  
 
 ### 9、获取SPACE价格
 
@@ -242,5 +293,31 @@
     }
   });
   ```
-  
   获取主网链上SPACE的实时价格（建议定时查询缓存在本地）。价格单位为USD，可根据最新的价格再计算钱包中SPACE币的USD价值。
+
+  响应参数：
+  ```
+  {
+    "code": 0,
+    "data": {
+        "chain": "main",
+        "blocks": 64325,
+        "headers": 64325,
+        "bestBlockHash": "000000000000000006456d75ccec8dcc4f31dbd1b398ee396ba59b9e345d3ab2",
+        "nodeCount": 0,
+        "hashRate": "738399067.240",
+        "hashRateSymbol": "GH/s",
+        "unconfirmedTxCount": 43838,
+        "difficulty": "90440065826.77759",
+        "circulatingSupply": 2713366,
+        "estimatedBlockSize": "55.33 MB",
+        "mempoolUsage": "128.01 MB",
+        "price": "18.83",
+        "marketCap": 51100821,
+        "chainwork": "000000000000000000000000000000000000000000106a5f0a89b042ac1ee50d"
+    }
+  }
+  ```
+  price为space当前的价格（USD）
+  
+  
