@@ -1,4 +1,4 @@
-import {mvc, FtManager, API_TARGET, apiHost, Wallet} from 'meta-contract';
+import {mvc, FtManager, API_TARGET, apiHost, Wallet, BN} from 'meta-contract';
 
 const testnetPath = 'https://testnet.mvcapi.com/';
 const mainnetPath = 'https://mainnet.mvcapi.com/';
@@ -8,7 +8,7 @@ export function getAddr(network, publicKeyX, publicKeyY) {
   var bgx = BigInt(publicKeyX);
   var bgy = BigInt(publicKeyY);
   var point = new mvc.crypto.Point(bgx.toString(16), bgy.toString(16), true);
-  var pub = mvc.PublicKey.fromPoint(point, false);
+  var pub = mvc.PublicKey.fromPoint(point, true);
   var addr = pub.toAddress(network).toString();
   return addr;
   
@@ -39,12 +39,20 @@ export async function getAssetsList(network, address, callback) {
   callback(true, data);
 }
 
+function getPrivateKeyWIF(network, privateKeyStr) {
+  const networkSymbol = 0xef;
+  const bigIntBuf = new BN(privateKeyStr).toBuffer();
+  const pkBuf = Buffer.concat([Buffer.alloc(1, networkSymbol), bigIntBuf, Buffer.alloc(1, 1)]);
+  const privateKey = mvc.PrivateKey.fromBuffer(pkBuf, network);
+  const address = privateKey.toAddress(network).toString();
+  console.log(address);
+  return privateKey.toWIF();
+}
+
 // 转账
 export async function trans(network, privateKeyStr, codehash, genesis, receiveAddress, amount, callback) {
-  const bg = BigInt(privateKeyStr);
-  const privateKey = mvc.PrivateKey.fromHex(bg.toString(16), network);
-  console.log('addr -> ' + privateKey.toAddress('testnet').toString());
-  const wif = privateKey.toWIF();
+  
+  const wif = getPrivateKeyWIF(network, privateKeyStr);
   
   const ft = new FtManager({
     network: network,
@@ -150,9 +158,7 @@ export async function getSpacePrice(callback) {
 // 转账（SPACE）
 export async function send(network, privateKeyStr, receiverAddress, amount, callback) {
   try {
-    const bg = BigInt(privateKeyStr);
-    const privateKey = mvc.PrivateKey.fromHex(bg.toString(16), network);
-    const wif = privateKey.toWIF();
+    const wif = getPrivateKeyWIF(network, privateKeyStr);
     const feeb = 1;
     var wallet = new Wallet(wif, network, feeb, API_TARGET.MVC);
     
