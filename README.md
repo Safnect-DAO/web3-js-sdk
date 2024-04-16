@@ -204,14 +204,16 @@
 ### 6、获取SPACE交易记录
 
   ```
-  Mvc.getSpaceRecords(network, address, function(success, data) {
+  Mvc.getSpaceRecords(network, address, confirmed, function(success, data) {
     if (success === true) {
       // 获取成功
 
     }
   });
   ```
-  通过钱包地址查询SPACE币的交易记录。
+  通过钱包地址查询SPACE币的交易记录
+  
+  confirmed取值：false|true，表示查询未确认和已确认的交易记录。
 
   响应参数：
   ```
