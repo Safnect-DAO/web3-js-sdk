@@ -114,7 +114,7 @@ export async function getSpaceBalnace(network, address, callback) {
 }
 
 // 获取Space交易明细
-export async function getSpaceRecords(network, address, callback, confirmed) {
+export async function getSpaceRecords(network, address, confirmed, callback) {
   var url;
   var suffix = 'address/' + address + '/tx?confirmed=' + confirmed;
   if (network == 'testnet') {
