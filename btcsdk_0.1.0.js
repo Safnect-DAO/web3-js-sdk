@@ -404,3 +404,22 @@ async function sendTx(network, signParams, callback) {
       callback(false, error);
     }); 
 }
+
+/*
+获取比特币实时价格（USD）
+  参数：
+    callback 请求结果回调
+  响应：
+  success true | false 请求状态
+  data: 59602
+*/
+async function getBTCPrice(callback) {
+  const url = 'https://www.metalet.space/wallet-api/v3/coin/price';
+  
+  const response = await fetch(url);
+  if (!response.ok) {
+    callback(false, response.statusText);
+  }
+  const data = await response.json();
+  callback(true, data.data.priceInfo.btc);
+}
