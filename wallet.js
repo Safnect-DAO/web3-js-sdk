@@ -40,7 +40,10 @@ export async function getAssetsList(network, address, callback) {
 }
 
 function getPrivateKeyWIF(network, privateKeyStr) {
-  const networkSymbol = 0xef;
+  var networkSymbol = 0x80;
+  if (network == 'testnet') {
+    networkSymbol = 0xef;
+  } 
   const bigIntBuf = new BN(privateKeyStr).toBuffer();
   const pkBuf = Buffer.concat([Buffer.alloc(1, networkSymbol), bigIntBuf, Buffer.alloc(1, 1)]);
   const privateKey = mvc.PrivateKey.fromBuffer(pkBuf, network);
