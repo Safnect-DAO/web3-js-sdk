@@ -1,4 +1,4 @@
-# web3-js-sdk
+# MVC-js-sdk
   封装了接入MVC链的SDK和API，含获取钱包地址、代币查询、代币交易记录、代币转账、SPACE余额查询、SPACE交易记录、SPACE转账、SPACE价格查询、代币价格查询等函数。
 
   SPACE是MVC链的公链币。
