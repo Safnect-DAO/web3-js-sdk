@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+  </head>
+  <body>
+    
+  </body>
+  <script src="btcsdk.min_0.2.0.js"></script>
+  <script>
+      /* 获取钱包地址 mn8STHMGJmXh8AsP3Yi8xrcaMFiYwfJHaj 
+      var address = Btc.getAddr('testnet', '62746799112549917464718709943776701657796072724295060736349911069934068246837', '27481197376953290194118656851960957093940009803358016964518881065050073312633', 'segwit_taproot');
+      address.then(data => { console.log(data)});
+     */
+     
+    
+      /*获取资产列表 mn8STHMGJmXh8AsP3Yi8xrcaMFiYwfJHaj 
+      Btc.getBalance('testnet', 'tb1ptmy54n9tlxu0erj76n95u6t8xc4qra90z9vyf70tzzlkcv0qwmeqyvzmd7', function(success, re){
+        var btcBalance = (re.chain_stats.funded_txo_sum - re.chain_stats.spent_txo_sum) / 100000000;
+        console.log(btcBalance);
+      });
+      */
+      
+      /*获取地址的交易记录
+      Btc.getBillList('testnet', 'tb1ptmy54n9tlxu0erj76n95u6t8xc4qra90z9vyf70tzzlkcv0qwmeqyvzmd7', function(success, re){
+        console.log(re);
+      });
+       */
+      
+      /*获取获取近期燃气费 
+      Btc.getGasFeeList('testnet', function(success, re){
+        console.log(re.data.list);
+      });
+      */
+      
+      /* 构建交易 
+      Btc.buildTx('testnet', 'tb1ptmy54n9tlxu0erj76n95u6t8xc4qra90z9vyf70tzzlkcv0qwmeqyvzmd7', 20000, '108797454056773984148530931947687177123320332117021602251700593414349949672582', 'tb1qeyuwuwctv783n8j944qn33knsyed2hyw7fcpwr', 262, function(re) {
+        var signParams = re;
+        console.log(signParams);
+        
+        // 计算预估燃气费
+        Btc.estimateGasFee('testnet', signParams, function(fee) {
+          console.log(fee);
+        });
+        
+        // 广播交易
+        Btc.sendTx('testnet', signParams, function(success, da) {
+          console.log(success);
+          console.log(da);
+        });
+      });
+     */
+      
+  </script>
+</html>
