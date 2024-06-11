@@ -185,10 +185,14 @@
 
 ### 5、构建交易参数
 
-  BTC交易流程
+  BTC交易（转账）流程
+  
   1、getGasFeeList
+  
   2、buildTx
+  
   3、estimateGasFee
+  
   4、sendTx
   
   1和3非必须步骤，正常交易步骤为用户填写转账表单，查出近期gas(getGasFeeList)，让用户选择一种gas种类，点击确认（buildTx），(3、estimateGasFee)弹出预估的网络费提示，再次点击确认发送交易(4、sendTx)。
