@@ -1,4 +1,4 @@
-# Safnect 
+# Safnect js
   Safnect js库封装了base64、sha1加密函数，后续对接服务器端API时生成数字摘要时使用。提供了生成随机数、钱包ID、获取公钥、密钥签名等功能函数，这些函数在创建钱包，获取私钥分片时调用。
   
   ![创建钱包](https://github.com/Safnect-DAO/web3-js-sdk/blob/main/create.jpg)
