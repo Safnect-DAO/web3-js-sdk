@@ -17,7 +17,7 @@
 ## 引入
   使用js-sdk前，需引入最新版本的sdk js库文件。
   
-  当前最新版本为 btcsdk.min_0.2.0.js
+  当前最新版本为 btcsdk.min_0.2.2.js
   
   network参数可选值：testnet | mainnet
 
@@ -199,7 +199,7 @@
 
 
   ```
-  Btc.buildTx(network, senderAddr, amount, privateKeyStr, receiverAddr, feePerB, callback(signParams) {
+  Btc.buildTx(network, senderAddr, amount, receiverAddr, feePerB, callback(signParams) {
     console.log(param);
   });
   ```
@@ -211,8 +211,6 @@
   
   amount 数额，单位satoshi
   
-  privateKeyStr  私钥10进制数据字符串
-  
   receiverAddr  接收者地址
   
   feePerB 费率，在getGasFeeList函数中获取，MVP版本选固定的avg值。
@@ -222,13 +220,11 @@
   响应参数：
   ```
   {
-    privateKey: 'cVeGiub1Q7LxH3MxREiwo1AxjHqz8deqb9ao3JJJoQM1MBbPCgW9',
-    data: {
+    
       inputs: [ [Object] ],
       outputs: [ [Object] ],
       address: 'tb1ptmy54n9tlxu0erj76n95u6t8xc4qra90z9vyf70tzzlkcv0qwmeqyvzmd7',
       feePerB: 47
-    }
   }
   ```
   
@@ -256,7 +252,7 @@
   将交易数据生成数字签名并广播到节点确认。
 
   ```
-  Btc.sendTx(network, signParams, function(success, data) {
+  Btc.sendTx(network, signParams, privateKeyStr, function(success, data) {
     if (success === true) {
       // 转账请求结果
       let txid = data;
@@ -271,6 +267,8 @@
   network 网络，取值mainnet|testnet
   
   signParams buildTx函数回调的数据
+
+  privateKeyStr  私钥10进制数据字符串
   
   callback(success, data) 交易发送结果
     
