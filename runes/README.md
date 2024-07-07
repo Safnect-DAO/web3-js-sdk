@@ -12,7 +12,7 @@
   
   符文接入一部分为调用服务端的API，另一部分调用js sdk的功能函数组合完成。
 
-  API Endpoint http://35.240.161.157/ API接入参考https://github.com/Safnect-DAO/wallet-mpc-server中的协议方式。
+  API Endpoint http://35.240.161.157/  API接入参考https://github.com/Safnect-DAO/wallet-mpc-server 中的协议方式。
   
   
 ## 参考资料
@@ -57,7 +57,16 @@
 
 ### 3、获取符文信息（API）
 
-  Path：/
+  Path：/runes/runes-info?network={network}&runeId={runeId}
+
+  参数：
+  
+  network 网络，取值mainnet|testnet
+  
+  runeId 符文Id
+
+
+### 4、转换符文名称
 
   通过API获取符文资产后，使用该函数转换符文名称，如符文名称为：SAFNECTWALLETTEST，解析后为SAFNECT•WALLET•TEST
  
@@ -71,7 +80,7 @@
   spacers 间隔规则
 
   
-### 5、构建交易参数
+### 5、获取符文历史交易记录（API）
 
   符文交易（转账）流程
   
