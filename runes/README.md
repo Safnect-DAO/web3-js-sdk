@@ -4,7 +4,7 @@
   
   符文是基于Bitcoin链实现，符文的蚀刻与交易信息都是以Btc交易为载体，通过Btc交易发送而发送。
 
-  符文可以理解为是运行在Btc公链的一个Token，符文的地址就是Btc地址，符文地址=Btc地址。
+  符文可以理解为是运行在Bitcoin链上的一个Token，符文的地址就是Btc地址，即符文地址=Btc地址。
   
   在Safnect中，使用了一个私钥派生多个链的钱包地址，为了隔离Btc和符文资产，Btc使用了taproot格式作为Btc的钱包地址，使用SegWit_Native作为符文的钱包地址。
 
@@ -23,9 +23,8 @@
   
   uniSat插件钱包 https://unisat.io/ （支持符文，可以用来配合调试、测试）
 
-  Btc在线区块浏览器 [https://mempool.space/testnet/tx/53fb7540f569ea2d9a9ab866021c9130cbfdde9dee776083b50b5d421b988658] (https://mempool.space/testnet/tx/53fb7540f569ea2d9a9ab866021c9130cbfdde9dee776083b50b5d421b988658)（用于查看交易信息、钱包地址信息、链上的区块信息）
-
-  API Endpoint http://35.240.161.157/
+  Btc在线区块浏览器 [https://mempool.space/testnet/tx/53fb7540f569ea2d9a9ab866021c9130cbfdde9dee776083b50b5d421b988658] (https://mempool.space/testnet/tx/53fb7540f569ea2d9a9ab866021c9130cbfdde9dee776083b50b5d421b988658)
+  （用于查看交易信息、钱包地址信息、链上的区块信息）
 
 ## 引入
   使用js-sdk前，需引入最新版本的sdk js库文件。
@@ -40,13 +39,12 @@
 
   复用Btc-js-sdk的获取钱包地址`const address = Btc.getAddr(network, publicKeyX, publicKeyY, addressType);`
   
-  addressType 取值segwit_native（为了区分BTC地址）
+  addressType 取值segwit_native（为了区分与BTC地址不同）
 
 
 ### 2、获取符文资产余额（API）
 
-  Path: /runes/balance-list?network={network}&address={address}
-  
+  `Path: /runes/balance-list?network={network}&address={address}`
   
   参数：
   
@@ -54,10 +52,35 @@
   
   address 符文钱包地址
 
+  响应：
+  
+  ```
+    {
+        "statusCode": 0,
+        "data": [
+            {
+                "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
+                "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
+                "rune_id": "2866497:1981",
+                "rune_name": "TESTSAFNECTWALLETRUNE",
+                "total_balance": "10000"
+            },
+            {
+                "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
+                "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
+                "rune_id": "2866450:73",
+                "rune_name": "SAFNECTWALLETTEST",
+                "total_balance": "25"
+            }
+        ]
+    }
+  
+  ```
+
 
 ### 3、获取符文信息（API）
 
-  Path：/runes/runes-info?network={network}&runeId={runeId}
+  `Path：/runes/runes-info?network={network}&runeId={runeId}`
 
   参数：
   
@@ -65,6 +88,36 @@
   
   runeId 符文Id
 
+  响应：
+  ```
+    {
+        "statusCode": 0,
+        "data": [
+            {
+                "rune_id": "2813363:1606",
+                "burned": "0",
+                "divisibility": 2,
+                "etching": "71c2929722f2b6207db0f9924028a2ccac6b08b35ce5708942afd111f45a632a",
+                "terms_amount": "0",
+                "terms_cap": "0",
+                "terms_height_l": null,
+                "terms_height_h": null,
+                "terms_offset_l": null,
+                "terms_offset_h": null,
+                "mints": "0",
+                "premine": "100000000000",
+                "rune_name": "MPCWALLETSAFNECTRUNE",
+                "spacers": "0",
+                "symbol": "53000000",
+                "timestamp": "2024-05-08T06:21:08.000Z",
+                "turbo": true
+            }
+        ]
+    }
+  ```
+
+  该接口的数据可以缓存在本地，无需每次重复调用，符文蚀刻之后，基本信息不会再改变。
+  
 
 ### 4、转换符文名称
 
@@ -82,23 +135,70 @@
   
 ### 5、获取符文历史交易记录（API）
 
+  `Path：/runes/bill-list/get?network={network}&address={address}`
+
+  参数：
+  
+  network 网络，取值mainnet|testnet
+  
+  address 符文钱包地址
+
+  响应：
+  ```
+  {
+    "statusCode": 0,
+    "data": [
+        {
+            "event_type": "output",
+            "txid": "50c3d88e53ce89bd706c7da311743eb1858ed11f7d8899811e825408dd539666",
+            "outpoint": "50c3d88e53ce89bd706c7da311743eb1858ed11f7d8899811e825408dd539666:1",
+            "rune_name": "TESTSAFNECTWALLETRUNE",
+            "amount": "10000",
+            "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
+            "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
+            "block_height": 2866497
+        },
+        {
+            "event_type": "output",
+            "txid": "f24ececd7ac063200474c666f118ceaec36d7d74d860e96d78e494eca158ff95",
+            "outpoint": "f24ececd7ac063200474c666f118ceaec36d7d74d860e96d78e494eca158ff95:1",
+            "rune_name": "SAFNECTWALLETTEST",
+            "amount": "7",
+            "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
+            "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
+            "block_height": 2866685
+        },
+        {
+            "event_type": "output",
+            "txid": "ed68052cb1f887458617d33178e3bd7cdaf56a750fd837d16fcd00c4df009008",
+            "outpoint": "ed68052cb1f887458617d33178e3bd7cdaf56a750fd837d16fcd00c4df009008:1",
+            "rune_name": "SAFNECTWALLETTEST",
+            "amount": "13",
+            "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
+            "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
+            "block_height": 2866686
+        }
+      ]
+  }
+  ```
+  
+
+### 6、构建交易参数
+
+  
   符文交易（转账）流程
   
-  1、getGasFeeList
+  1、Btc.getGasFeeList 获取近期Gas费率列表（使用Btc-js-sdk）
   
-  2、buildTx
+  2、Runes.buildTx 构造完交易参数得到网络费和待签名的交易数据
   
-  3、estimateGasFee
+  3、Btc.getPrivateKeyWIF(network, privateKeyStr) 通过10进制私钥获取WIF格式私钥（使用Btc-js-sdk）
   
-  4、sendTx
-  
-  1和3非必须步骤，正常交易步骤为用户填写转账表单，查出近期gas(getGasFeeList)，让用户选择一种gas种类，点击确认（buildTx），(3、estimateGasFee)弹出预估的网络费提示，再次点击确认发送交易(4、sendTx)。
+  4、Runes.sendTx(network, inputArr, outputArr, wif, callback);
 
 
   ```
-  Btc.buildTx(network, senderAddr, amount, receiverAddr, feePerB, callback(signParams) {
-    console.log(param);
-  });
+  Runes.buildTx(network, runeId, senderAddr, amount, receiverAddr, feePerB, callback(gasFee, totalFee, inputArr, outputArr) {})
   ```
   参数：
   
@@ -106,89 +206,33 @@
   
   senderAddr 发送者地址
   
-  amount 数额，单位satoshi
+  amount 最小单位数额（受API 3、获取符文信息返回的divisibility的值影响，如：divisibility值为2，表示当前符文的最小单元为0.01，此时如果amount填写的120，则实际转账为1.2；divisibility值为1，表示当前符文的最小单元为0.1，此时如果amount的值填写为153，则实际转账为15.3)，可使用js函数Math.pow(10, divisibility)对最小单元的数值进行转换。
   
   receiverAddr  接收者地址
   
-  feePerB 费率，在getGasFeeList函数中获取，MVP版本选固定的avg值。
+  feePerB 费率，在getGasFeeList函数中获取，选固定的avg值。
   
-  callback(signParams) 构建结果回调，回调参数为交易参数，传入sendTx函数中签名并广播
-
-  响应参数：
-  ```
-  {
-    
-      inputs: [ [Object] ],
-      outputs: [ [Object] ],
-      address: 'tb1ptmy54n9tlxu0erj76n95u6t8xc4qra90z9vyf70tzzlkcv0qwmeqyvzmd7',
-      feePerB: 47
-  }
-  ```
+  callback(gasFee, totalFee, inputArr, outputArr) 构建结果回调，回调参数依次为Gas费、交易总费用、交易入参、交易出参，交易入参、交易出参在下一步发送交易时用到
   
 
-### 6、估算燃气费
-
-  用户填写完转账的表单（接收地址、发送的币的数量），调用SDK构建交易，通过交易参数估算本次交易的Gas费用，并提示本次交易的Gas费用。
-
-  ```
-  Btc.estimateGasFee(network, signParams, function(estFee) {
-    console.log(estFee);
-  });
-  ```
-  参数：
-  
-  network 网络，取值mainnet|testnet
-  
-  signParams buildTx函数回调的数据
-  
-  callback(estGasFee) estGasFee是预估的网络费
-    
-
-### 7、发送交易（广播）
+### 7、发送交易
 
   将交易数据生成数字签名并广播到节点确认。
 
   ```
-  Btc.sendTx(network, signParams, privateKeyStr, function(success, data) {
-    if (success === true) {
-      // 转账请求结果
-      let txid = data;
-    } else {
-      // 失败
-      const errMsg = data;
-    }
+  Runes.sendTx(network, inputArr, outputArr, wif, callback(re) {
+    let txid = re;
   });
   ```
   参数：
   
   network 网络，取值mainnet|testnet
   
-  signParams buildTx函数回调的数据
+  inputArr 交易入参
 
-  privateKeyStr  私钥10进制数据字符串
+  outputArr  交易出参
+
+  wif  使用Btc-js-sdk Btc.getPrivateKeyWIF(network, privateKeyStr) 获取WIF格式私钥
   
-  callback(success, data) 交易发送结果
+  callback(re) 交易结果回调
     
-  
-### 8、获取比特币实时价格行情（USD）
-
-  获取当前时间比特币的实时价格（币/USD），通过取得的实时币价计算用户的钱包资产价值。
-
-  ```
-  Btc.getBTCPrice(callback(success, data) {
-    if (success === true) {
-      console.log(data);
-    }
-  });
-  ```
-  参数：
-  
-  callback 请求结果回调
-
-  响应参数：
-  ```
-    success true | false 请求状态
-    data: 
-      {"usd":69399,"usd_24h_change":-2.8389067324642947}
-  ```
-  usd 实时价格（USD），usd_24h_change 24小时涨跌幅（%），usd_24h_change可通过js的toFixed(2)转换，保留2位小数。
