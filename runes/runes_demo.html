@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+  </head>
+  <body>
+    
+  </body>
+   <script src="runessdk.min_0.0.1.js"></script> 
+  <script>
+      Runes.buildTx('testnet', '2866450:73', 'tb1q4tw7rs0ytw0elk8vcfflpkvaa8uk5x2jfs9ryy', 3,
+'tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y', 16, function(gasFee, totalFee, inputArr, outputArr) {
+  console.log(gasFee, totalFee, inputArr, outputArr);
+  Runes.sendTx('testnet', inputArr, outputArr, 'cVeGiub1Q7LxH3MxREiwo1AxjHqz8deqb9ao3JJJoQM1MBbPCgW9', function(re) {
+    console.log(re);
+  });
+});
+      
+  </script>
+</html>
