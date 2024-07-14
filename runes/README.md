@@ -6,7 +6,7 @@
 
   符文可以理解为是运行在Bitcoin链上的一个Token，符文的地址就是Btc地址，即符文地址=Btc地址。
   
-  在Safnect中，使用了一个私钥派生多个链的钱包地址，为了隔离Btc和符文资产，Btc使用了taproot格式作为Btc的钱包地址，使用SegWit_Native作为符文的钱包地址。
+  在Safnect中，使用了一个私钥派生多个链的钱包地址，为了隔离Btc和符文资产，Btc使用了taproot格式作为Btc的钱包地址，使用SegWit_Native作为符文的钱包地址。符文转账时，需要传入BTC地址和符文地址，取BTC地址余额作为GasFee，符文地址的余额作为符文余额来转账。
 
   符文交易是一种特殊的Btc交易，交易原理和底层还是BTC交易流程，所以获取钱包地址、获取近期Gas费列表、获取WIF格式私钥等功能函数可以复用BTC-js-sdk。
   
@@ -29,7 +29,7 @@
 ## 引入
   使用js-sdk前，需引入最新版本的sdk js库文件。
   
-  当前最新版本为 runessdk.min_0.0.1.js
+  当前最新版本为 runessdk.min_0.1.0.js
   
   network参数可选值：testnet | mainnet
 
@@ -198,13 +198,15 @@
 
 
   ```
-  Runes.buildTx(network, runeId, senderAddr, amount, receiverAddr, feePerB, callback(gasFee, totalFee, inputArr, outputArr) {})
+  Runes.buildTx(network, runeId, senderAddr, btcSendAddr, amount, receiverAddr, feePerB, callback(gasFee, totalFee, inputArr1, inputArr2, outputArr) {})
   ```
   参数：
   
   network 网络，取值mainnet|testnet
   
-  senderAddr 发送者地址
+  senderAddr 发送者符文地址
+
+  btcSendAddr 发送者BTC地址
   
   amount 最小单位数额（受API 3、获取符文信息返回的divisibility的值影响，如：divisibility值为2，表示当前符文的最小单元为0.01，此时如果amount填写的120，则实际转账为1.2；divisibility值为1，表示当前符文的最小单元为0.1，此时如果amount的值填写为153，则实际转账为15.3)，可使用js函数Math.pow(10, divisibility)对最小单元的数值进行转换。
   
@@ -212,7 +214,7 @@
   
   feePerB 费率，在getGasFeeList函数中获取，选固定的avg值。
   
-  callback(gasFee, totalFee, inputArr, outputArr) 构建结果回调，回调参数依次为Gas费、交易总费用、交易入参、交易出参，交易入参、交易出参在下一步发送交易时用到
+  callback(code, gasFee, totalFee, inputArr1, inputArr2, outputArr) 构建结果回调，回调参数依次为code状态码（0是成功，3表示余额不足）、Gas费、交易总费用、交易入参1、交易入参2、交易出参，交易入参、交易出参在下一步发送交易时用到
   
 
 ### 7、发送交易
@@ -220,7 +222,7 @@
   将交易数据生成数字签名并广播到节点确认。
 
   ```
-  Runes.sendTx(network, inputArr, outputArr, wif, callback(re) {
+  Runes.sendTx(network, inputArr1, inputArr2, outputArr, wif, callback(re) {
     let txid = re;
   });
   ```
@@ -228,7 +230,9 @@
   
   network 网络，取值mainnet|testnet
   
-  inputArr 交易入参
+  inputArr1 交易入参1
+
+  inputArr2 交易入参2
 
   outputArr  交易出参
 
