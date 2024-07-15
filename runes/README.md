@@ -55,25 +55,16 @@
   响应：
   
   ```
-    {
-        "statusCode": 0,
-        "data": [
-            {
-                "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
-                "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
-                "rune_id": "2866497:1981",
-                "rune_name": "TESTSAFNECTWALLETRUNE",
-                "total_balance": "10000"
-            },
-            {
-                "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
-                "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
-                "rune_id": "2866450:73",
-                "rune_name": "SAFNECTWALLETTEST",
-                "total_balance": "25"
-            }
-        ]
-    }
+    [
+        {
+            "rune": "SAFNECTWALLETTEST", // 名称
+            "runeid": "2866450:73",  // 符文id
+            "spacedRune": "SAFNECT•WALLET•TEST", // 美化后的名称
+            "amount": "27", // 余额
+            "symbol": "¤", // 符号
+            "divisibility": 0 // 最小单位精度
+        }
+    ]
   
   ```
 
@@ -91,28 +82,27 @@
   响应：
   ```
     {
-        "statusCode": 0,
-        "data": [
-            {
-                "rune_id": "2813363:1606",
-                "burned": "0",
-                "divisibility": 2,
-                "etching": "71c2929722f2b6207db0f9924028a2ccac6b08b35ce5708942afd111f45a632a",
-                "terms_amount": "0",
-                "terms_cap": "0",
-                "terms_height_l": null,
-                "terms_height_h": null,
-                "terms_offset_l": null,
-                "terms_offset_h": null,
-                "mints": "0",
-                "premine": "100000000000",
-                "rune_name": "MPCWALLETSAFNECTRUNE",
-                "spacers": "0",
-                "symbol": "53000000",
-                "timestamp": "2024-05-08T06:21:08.000Z",
-                "turbo": true
-            }
-        ]
+        "runeid": "2866450:73", // 符文id
+        "rune": "SAFNECTWALLETTEST",  // 符文名称
+        "spacedRune": "SAFNECT•WALLET•TEST", // 美化后的名称
+        "number": 6134,  // 块中的交易数
+        "height": 2866450,  // 块的高度
+        "txidx": 73, 
+        "timestamp": 1720244891,
+        "divisibility": 0, // 最小单元精度
+        "symbol": "¤",  // 符号
+        "etching": "e53363a07303ad036de6dadb41342aba77acf3ea94e21ff02e9137aea1257f4d",  // etch txid 
+        "premine": "1000",  // 预造数量
+        "terms": null,
+        "mints": "0",
+        "burned": "0",
+        "holders": 3,  // 持有地址数
+        "transactions": 11, // 交易总数
+        "supply": "1000", // 总供应量
+        "start": null,
+        "end": null,
+        "mintable": false, // 是否可铸造
+        "remaining": "0"
     }
   ```
 
@@ -145,41 +135,36 @@
 
   响应：
   ```
-  {
-    "statusCode": 0,
-    "data": [
-        {
-            "event_type": "output",
-            "txid": "50c3d88e53ce89bd706c7da311743eb1858ed11f7d8899811e825408dd539666",
-            "outpoint": "50c3d88e53ce89bd706c7da311743eb1858ed11f7d8899811e825408dd539666:1",
-            "rune_name": "TESTSAFNECTWALLETRUNE",
-            "amount": "10000",
-            "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
-            "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
-            "block_height": 2866497
-        },
-        {
-            "event_type": "output",
-            "txid": "f24ececd7ac063200474c666f118ceaec36d7d74d860e96d78e494eca158ff95",
-            "outpoint": "f24ececd7ac063200474c666f118ceaec36d7d74d860e96d78e494eca158ff95:1",
-            "rune_name": "SAFNECTWALLETTEST",
-            "amount": "7",
-            "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
-            "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
-            "block_height": 2866685
-        },
-        {
-            "event_type": "output",
-            "txid": "ed68052cb1f887458617d33178e3bd7cdaf56a750fd837d16fcd00c4df009008",
-            "outpoint": "ed68052cb1f887458617d33178e3bd7cdaf56a750fd837d16fcd00c4df009008:1",
-            "rune_name": "SAFNECTWALLETTEST",
-            "amount": "13",
-            "pkscript": "5120b5e7f5697ef307973609da9de9f45197cffbb5c8fbf76b1b304e430a70442501",
-            "wallet_addr": "tb1pkhnl26t77vrewdsfm2w7naz3jl8lhdwgl0mkkxesfeps5uzyy5qsq0ly0y",
-            "block_height": 2866686
-        }
-      ]
-  }
+  [
+    {
+        "receiverAddress": "tb1q4tw7rs0ytw0elk8vcfflpkvaa8uk5x2jfs9ryy", // 接收地址
+        "symbol": "¤",  // 符号
+        "totalAmount": 6, // 总数量
+        "gasFee": 5280,  // GasFee（单位是Satoshi，1BTC=1亿Satoshi）
+        "amount": 6,  // 数量
+        "senderAddress": "tb1qtmalqgc3g39rw5vue3zm6vppqspdg9xze9anlp",  // 发送地址
+        "txid": "98e6d2e542d41bb9ffbc1c8b2e06e1b43358f29fb5b13ef0f3a716976fcf3ac1", // 交易id
+        "runeId": "2866450:73",  // 符文id
+        "time": 1720875445,  // 时间
+        "runeName": "SAFNECT•WALLET•TEST", // 符文名称
+        "confirmed": true,  // 确认的
+        "direction": 0  // 进出方向，1：进，0：出
+    },
+    {
+        "receiverAddress": "tb1qtmalqgc3g39rw5vue3zm6vppqspdg9xze9anlp",
+        "symbol": "¤",
+        "totalAmount": 35,
+        "gasFee": 4716,
+        "amount": 35,
+        "senderAddress": "tb1q4tw7rs0ytw0elk8vcfflpkvaa8uk5x2jfs9ryy",
+        "txid": "7787c71328b02356cdcbcdcb510c56dd8176b9c1bf1314fac0b3414d0cd07590",
+        "runeId": "2866450:73",
+        "time": 1720848654,
+        "runeName": "SAFNECT•WALLET•TEST",
+        "confirmed": true,
+        "direction": 1
+    }
+  ]
   ```
   
 
