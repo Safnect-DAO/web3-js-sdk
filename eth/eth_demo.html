@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+  </head>
+  <body>
+    
+  </body>
+   <script src="ethsdk.min_0.0.1.js"></script> 
+  <script>
+    // 获取钱包地址
+    const addr = Eth.getAddr('68274785307114342739009070531363005661093007227002666619093312887277039497826', '57074332750356523974697938118298959263773902561076999589016829257321074546695');
+    console.log(`eth address is ${addr}`);
+    
+    // 构建交易 and 发送交易
+    
+    Eth.buildTx('testnet', '0x6bd35dfe65497920afc55ace688c39f6f970ff52', '0xb555120ea4dea26917aae68c8eff198cca17323e', 0.0035).then(redata => {
+      console.log(redata);
+      const tx = redata.tx;
+      const gasFee = redata.gasFee;
+      console.log(`gasFee is ${gasFee}`);
+      Eth.sendTx('testnet', tx, '92344248619262638988884847660942631348652793639982218536482004342116811874981').then(receipt => {
+        console.log(`tx id is ${receipt.transactionHash}`);
+      });
+    });
+  </script>
+</html>
