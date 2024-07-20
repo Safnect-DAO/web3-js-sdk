@@ -62,7 +62,8 @@
             "spacedRune": "SAFNECT•WALLET•TEST", // 美化后的名称
             "amount": "27", // 余额
             "symbol": "¤", // 符号
-            "divisibility": 0 // 最小单位精度
+            "divisibility": 0, // 最小单位精度
+            "image": "https://xxx.xx.xx/xxx/xx.png"  // 符文图片
         }
     ]
   
@@ -102,7 +103,8 @@
         "start": null,
         "end": null,
         "mintable": false, // 是否可铸造
-        "remaining": "0"
+        "remaining": "0",
+        "image": "https://xxx.xx.xx/xxx/xx.png"  // 符文图片
     }
   ```
 
