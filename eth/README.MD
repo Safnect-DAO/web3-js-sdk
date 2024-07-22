@@ -39,7 +39,7 @@
   
   network 网络，取值mainnet|testnet
   
-  address 符文钱包地址
+  address 钱包地址
 
   callback(balance)  余额回调函数，参数balance为余额值。
 
