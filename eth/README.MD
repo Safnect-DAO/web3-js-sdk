@@ -252,7 +252,7 @@
 
     to 接收钱包地址
 
-    amount 发送数额（数额需要转换，如果当前的余额为33.56，用户填的发送额度是10.5，则参数值 = 10.5 * Math.pow(10, 6) = 10500000，参数值传10500000）
+    amount 发送数额字符串（数额需要转换，如果当前的余额为33.56，用户填的发送额度是10.5，则参数值 = 10.5 * Math.pow(10, 6) = 10500000，参数值传'10500000'）
 
     tokenContractAddress 代币合约地址（代币余额列表接口中获取）
 
@@ -284,7 +284,7 @@
 
 
   // 构建交易 and 发送交易 （代币）
-  Eth.buildTokenTx('testnet', '0x6bd35dfe65497920afc55ace688c39f6f970ff52', '0xb555120ea4dea26917aae68c8eff198cca17323e', 1600000000000000, '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14').then(redata => {
+  Eth.buildTokenTx('testnet', '0x6bd35dfe65497920afc55ace688c39f6f970ff52', '0xb555120ea4dea26917aae68c8eff198cca17323e', '1600000000000000', '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14').then(redata => {
     console.log(redata);
     const tx = redata.tx;
     const gasFee = redata.gasFee;
